@@ -12,3 +12,17 @@ C:\Users\gatão\source\repos\Restudemy\Restudemy\obj\Debug\netcoreapp2.1\Restude
 C:\Users\gatão\source\repos\Restudemy\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorTargetAssemblyInfo.cache
 C:\Users\gatão\source\repos\Restudemy\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.dll
 C:\Users\gatão\source\repos\Restudemy\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.pdb
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\bin\Debug\netcoreapp2.1\Restudemy.deps.json
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\bin\Debug\netcoreapp2.1\Restudemy.runtimeconfig.json
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\bin\Debug\netcoreapp2.1\Restudemy.runtimeconfig.dev.json
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\bin\Debug\netcoreapp2.1\Restudemy.dll
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\bin\Debug\netcoreapp2.1\Restudemy.pdb
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.csprojAssemblyReference.cache
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.csproj.CoreCompileInputs.cache
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorAssemblyInfo.cache
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorAssemblyInfo.cs
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.AssemblyInfoInputs.cache
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.AssemblyInfo.cs
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorTargetAssemblyInfo.cache
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.dll
+C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.pdb

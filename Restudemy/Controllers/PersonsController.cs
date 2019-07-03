@@ -1,28 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restudemy.Model;
-using Restudemy.Services;
+using Restudemy.Business;
 
 namespace Restudemy.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
+    [ApiVersion("1")]
+    [Route("api/[controller]/v{vesion:apiVersion}")]
     public class PersonsController : ControllerBase
     {
-        private IPersonService _personService;
+        private IPersonBusiness _personBusiness;
 
-        public PersonsController(IPersonService personService)
+        public PersonsController(IPersonBusiness personBusiness)
         {
-            _personService = personService;
+            _personBusiness = personBusiness;
         }
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_personService.FindAll());
+            return Ok(_personBusiness.FindAll());
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var person = _personService.FindById(id);
+            var person = _personBusiness.FindById(id);
             if (person == null) return NotFound();
             return Ok(person);
         }
@@ -30,18 +32,18 @@ namespace Restudemy.Controllers
         public IActionResult Post([FromBody]Person person)
         {
             if(person ==null) return BadRequest();
-            return new ObjectResult(_personService.Create(person));
+            return new ObjectResult(_personBusiness.Create(person));
         }
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]Person person)
+        [HttpPut]
+        public IActionResult Put([FromBody]Person person)
         {
             if (person == null) return BadRequest();
-            return new ObjectResult(_personService.Update(person));
+            return new ObjectResult(_personBusiness.Update(person));
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _personService.Delete(id);
+            _personBusiness.Delete(id);
             return NoContent();
         }
     }

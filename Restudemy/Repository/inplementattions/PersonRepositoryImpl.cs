@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Restudemy.Business;
 using Restudemy.Model;
 using Restudemy.Model.Context;
 
-namespace Restudemy.Services.inplementattions
+namespace Restudemy.Repository.inplementattions
 {
-    public class PersonServiceImpl : IPersonService
+    public class PersonRepositoryImpl : IPersonRepository
     {
         private MySQLContext _context;
 
-        public PersonServiceImpl(MySQLContext context)
+        public PersonRepositoryImpl(MySQLContext context)
         {
             _context = context;
         }
-      
+
 
         public Person Create(Person person)
         {
@@ -25,7 +26,7 @@ namespace Restudemy.Services.inplementattions
                 _context.Add(person);
                 _context.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -48,7 +49,7 @@ namespace Restudemy.Services.inplementattions
 
         public List<Person> FindAll()
         {
-        
+
             return _context.Persons.ToList();
         }
 
@@ -59,11 +60,11 @@ namespace Restudemy.Services.inplementattions
 
         public Person Update(Person person)
         {
-            if (!Exist(person.Id)) return new Person();
+            if (!Exists(person.Id)) return new Person();
             var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(person.Id));
             try
             {
-                _context.Entry(person).CurrentValues.SetValues(person);
+                _context.Entry(result).CurrentValues.SetValues(person);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -73,7 +74,7 @@ namespace Restudemy.Services.inplementattions
             return person;
         }
 
-        private bool Exist(long? id)
+        public bool Exists(long? id)
         {
             return _context.Persons.Any(p => p.Id.Equals(id));
         }
