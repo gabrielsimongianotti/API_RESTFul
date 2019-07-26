@@ -43,7 +43,7 @@
           "dependencies": {
             "Evolve": {
               "target": "Package",
-              "version": "[2.2.0, )"
+              "version": "[1.8.0, )"
             },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
@@ -53,7 +53,7 @@
             },
             "Microsoft.AspNetCore.Mvc.Versioning": {
               "target": "Package",
-              "version": "[2.3.0, )"
+              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Razor.Design": {
               "suppressParent": "All",
