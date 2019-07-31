@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restudemy.Model.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,10 +9,8 @@ namespace Restudemy.Model
 {
    
         [Table("persons")]
-        public class Person
+        public class Person :BaseEntity
         {
-            [Column("Id")]
-            public long? Id { get; set; }
 
             [Column("FirstName")]
             public string FirstName { get; set; }

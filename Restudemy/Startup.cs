@@ -11,6 +11,7 @@ using Restudemy.Repository.inplementattions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using Restudemy.Repository.Generic;
 
 namespace Restudemy
 {
@@ -40,7 +41,7 @@ namespace Restudemy
 
                     var evolve = new Evolve.Evolve("Evolve.json", evolveConnection, msg => _logger.LogInformation(msg))
                     {
-                        Locations = new List<string> { "db/migrations" },
+                        Locations = new List<string> { "db/migrations","db/dataset" },
                         IsEraseDisabled = true,
                     };
 
@@ -61,7 +62,10 @@ namespace Restudemy
 
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
+            services.AddScoped<IBooksBusiness, BookBusinessImpl>();
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
+            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

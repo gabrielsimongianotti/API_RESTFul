@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using Restudemy.Model;
 using Restudemy.Model.Context;
 using Restudemy.Repository;
+using Restudemy.Repository.Generic;
 
 namespace Restudemy.Business.inplementattions
 {
     public class PersonBusinessImpl : IPersonBusiness
     {
-        private readonly IPersonRepository _repository;
+        private IRepository<Person> _repository;
 
-        public PersonBusinessImpl(IPersonRepository repository)
+        public PersonBusinessImpl(IRepository<Person> repository)
         {
             _repository = repository;
         }
@@ -43,7 +44,7 @@ namespace Restudemy.Business.inplementattions
             _repository.Delete(id);
         }
 
-        public bool Exists(long id)
+        public bool Exists(long? id)
         {
             return _repository.Exists(id);
         }

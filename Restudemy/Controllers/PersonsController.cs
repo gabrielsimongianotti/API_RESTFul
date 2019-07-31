@@ -32,6 +32,7 @@ namespace Restudemy.Controllers
         public IActionResult Post([FromBody]Person person)
         {
             if(person ==null) return BadRequest();
+            if (_personBusiness.Exists(person.Id) ) return BadRequest();
             return new ObjectResult(_personBusiness.Create(person));
         }
         [HttpPut]
