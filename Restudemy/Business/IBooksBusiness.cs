@@ -1,14 +1,14 @@
-﻿using Restudemy.Model;
+﻿using Restudemy.Data.VO;
 using System.Collections.Generic;
 
 namespace Restudemy.Business
 {
     public interface IBooksBusiness
     {
-        Book Create(Book book);
-        Book FindById(long id);
-        List<Book> FindAll();
-        Book Update(Book book);
+        BookVO Create(BookVO book);
+        BookVO FindById(long id);
+        List<BookVO> FindAll();
+        BookVO Update(BookVO book);
         void Delete(long id);
     }
 }

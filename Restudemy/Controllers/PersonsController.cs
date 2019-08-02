@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restudemy.Model;
 using Restudemy.Business;
+using Restudemy.Data.VO;
 
 namespace Restudemy.Controllers
 {
@@ -11,6 +12,8 @@ namespace Restudemy.Controllers
     public class PersonsController : ControllerBase
     {
         private IPersonBusiness _personBusiness;
+
+        private readonly BooksController _converter;
 
         public PersonsController(IPersonBusiness personBusiness)
         {
@@ -29,14 +32,14 @@ namespace Restudemy.Controllers
             return Ok(person);
         }
         [HttpPost]
-        public IActionResult Post([FromBody]Person person)
+        public IActionResult Post([FromBody]PersonVO person)
         {
             if(person ==null) return BadRequest();
             if (_personBusiness.Exists(person.Id) ) return BadRequest();
             return new ObjectResult(_personBusiness.Create(person));
         }
         [HttpPut]
-        public IActionResult Put([FromBody]Person person)
+        public IActionResult Put([FromBody]PersonVO person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(_personBusiness.Update(person));

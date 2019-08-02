@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Restudemy.Business;
-using Restudemy.Model;
+using Restudemy.Data.VO;
 
 namespace Restudemy.Controllers
 {
@@ -35,13 +30,13 @@ namespace Restudemy.Controllers
     
         }
         [HttpPost]
-        public IActionResult Post([FromBody]Book books)
+        public IActionResult Post([FromBody]BookVO books)
         {
             if (books == null) return BadRequest();
             return new ObjectResult(_booksBusiness.Create(books));
         }
         [HttpPut]
-        public IActionResult Put([FromBody]Book books)
+        public IActionResult Put([FromBody]BookVO books)
         {
             if (books == null) return BadRequest();
             return new ObjectResult(_booksBusiness.Update(books));

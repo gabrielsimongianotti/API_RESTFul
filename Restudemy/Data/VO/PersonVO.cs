@@ -1,12 +1,11 @@
-﻿using Restudemy.Model.Base;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Restudemy.Model
+namespace Restudemy.Data.VO
 {
-   
-        [Table("persons")]
-        public class Person : BaseEntity
-    {
+        public class PersonVO
+        {
+            [Column("Id")]
+            public long? Id { get; set; }
             [Column("FirstName")]
             public string FirstName { get; set; }
 
