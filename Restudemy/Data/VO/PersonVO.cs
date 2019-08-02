@@ -1,21 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Restudemy.Data.VO
 {
+    [DataContract]
         public class PersonVO
         {
-            [Column("Id")]
+            [DataMember (Order=1,Name = "codigo")]
+            
             public long? Id { get; set; }
-            [Column("FirstName")]
+            [DataMember(Order = 2)]
             public string FirstName { get; set; }
 
-            [Column("LastName")]
+            [DataMember(Order = 3)]
             public string LastName { get; set; }
 
-            [Column("Address")]
+            [DataMember(Order = 4)]
             public string Address { get; set; }
 
-            [Column("Gender")]
+            [DataMember(Order = 5)]
             public string Gender { get; set; }
         }
     
