@@ -10,13 +10,15 @@
 
   <ItemGroup>
     <PackageReference Include="Evolve" Version="1.8.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
-    <PackageReference Include="MySql.Data" Version="8.0.16" />
+    <PackageReference Include="MySql.Data" Version="8.0.17" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
+    <PackageReference Include="Tapioca.HATEOAS" Version="1.0.4" />
   </ItemGroup>
   
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">

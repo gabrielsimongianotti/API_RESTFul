@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Restudemy.Model.Context;
 using Restudemy.Business;
 using Restudemy.Business.inplementattions;
-using Restudemy.Repository;
-using Restudemy.Repository.inplementattions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using Restudemy.Repository.Generic;
 using Microsoft.Net.Http.Headers;
+using Tapioca.HATEOAS;
+using Restudemy.Hypermedia;
 
 namespace Restudemy
 {
@@ -59,27 +59,33 @@ namespace Restudemy
 
             services.AddMvc(options => 
             {
-                options.RespectBrowserAcceptHeader = true;
+                options.RespectBrowserAcceptHeader = false;
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
-            }).AddXmlSerializerFormatters();
+            })
+            .AddXmlSerializerFormatters();
+
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnricher());
+
+            services.AddSingleton(filterOptions);
 
             services.AddApiVersioning(option => option.ReportApiVersions = true);
 
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IBooksBusiness, BookBusinessImpl>();
-            services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
+
             services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+               app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -87,7 +93,15 @@ namespace Restudemy
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id?}");
+            });
         }
     }
 }
