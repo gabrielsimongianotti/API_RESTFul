@@ -6,7 +6,7 @@ using Tapioca.HATEOAS;
 namespace Restudemy.Data.VO
 {
     [DataContract]
-        public class PersonVO :ISupportsHyperMedia
+        public class PersonVO : ISupportsHyperMedia
         {
             [DataMember (Order=1,Name = "codigo")]
             
@@ -22,7 +22,8 @@ namespace Restudemy.Data.VO
 
             [DataMember(Order = 5)]
             public string Gender { get; set; }
-        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+            [DataMember(Order = 6)]
+            public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
     
 }

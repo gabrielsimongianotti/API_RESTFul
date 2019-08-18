@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restudemy.Business;
 using Restudemy.Data.VO;
+using Tapioca.HATEOAS;
 
 namespace Restudemy.Controllers
 {
@@ -16,12 +17,14 @@ namespace Restudemy.Controllers
             _booksBusiness = booksBusiness;
         }
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(_booksBusiness.FindAll());
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
             var book = _booksBusiness.FindById(id);
@@ -30,18 +33,21 @@ namespace Restudemy.Controllers
     
         }
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody]BookVO books)
         {
             if (books == null) return BadRequest();
             return new ObjectResult(_booksBusiness.Create(books));
         }
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody]BookVO books)
         {
             if (books == null) return BadRequest();
             return new ObjectResult(_booksBusiness.Update(books));
         }
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         {
             _booksBusiness.Delete(id);

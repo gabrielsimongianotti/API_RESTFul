@@ -59,7 +59,7 @@ namespace Restudemy
 
             services.AddMvc(options => 
             {
-                options.RespectBrowserAcceptHeader = false;
+                options.RespectBrowserAcceptHeader = true;
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
             })
@@ -67,7 +67,7 @@ namespace Restudemy
 
             var filterOptions = new HyperMediaFilterOptions();
             filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnricher());
-
+            filterOptions.ObjectContentResponseEnricherList.Add(new BooksEnricher());
             services.AddSingleton(filterOptions);
 
             services.AddApiVersioning(option => option.ReportApiVersions = true);
@@ -92,9 +92,9 @@ namespace Restudemy
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //app.UseHttpsRedirection();
+            //loggerFactory.AddConsole(_configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
             app.UseMvc(routes =>
             {
