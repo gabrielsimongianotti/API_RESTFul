@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\soneca\\Desktop\\API_RESTFul\\Restudemy\\Restudemy.csproj": {}
+    "C:\\Users\\soneca\\Documents\\API_RESTFul\\Restudemy\\Restudemy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\soneca\\Desktop\\API_RESTFul\\Restudemy\\Restudemy.csproj": {
+    "C:\\Users\\soneca\\Documents\\API_RESTFul\\Restudemy\\Restudemy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\soneca\\Desktop\\API_RESTFul\\Restudemy\\Restudemy.csproj",
+        "projectUniqueName": "C:\\Users\\soneca\\Documents\\API_RESTFul\\Restudemy\\Restudemy.csproj",
         "projectName": "Restudemy",
-        "projectPath": "C:\\Users\\soneca\\Desktop\\API_RESTFul\\Restudemy\\Restudemy.csproj",
+        "projectPath": "C:\\Users\\soneca\\Documents\\API_RESTFul\\Restudemy\\Restudemy.csproj",
         "packagesPath": "C:\\Users\\soneca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\soneca\\Desktop\\API_RESTFul\\Restudemy\\obj\\",
+        "outputPath": "C:\\Users\\soneca\\Documents\\API_RESTFul\\Restudemy\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -69,6 +69,7 @@
               "version": "[2.1.2, )"
             },
             "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
@@ -84,6 +85,10 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[2.1.4, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[2.4.0, )"
             },
             "Tapioca.HATEOAS": {
               "target": "Package",

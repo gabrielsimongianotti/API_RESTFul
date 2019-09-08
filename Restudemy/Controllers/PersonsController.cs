@@ -3,6 +3,8 @@ using Restudemy.Model;
 using Restudemy.Business;
 using Restudemy.Data.VO;
 using Tapioca.HATEOAS;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
 
 namespace Restudemy.Controllers
 {
@@ -21,12 +23,20 @@ namespace Restudemy.Controllers
             _personBusiness = personBusiness;
         }
         [HttpGet]
+        [SwaggerResponse((200), Type = typeof(List<PersonVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(_personBusiness.FindAll());
         }
         [HttpGet("{id}")]
+        [SwaggerResponse((200), Type = typeof(List<PersonVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
@@ -35,6 +45,9 @@ namespace Restudemy.Controllers
             return Ok(person);
         }
         [HttpPost]
+        [SwaggerResponse((201), Type = typeof(List<PersonVO>))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody]PersonVO person)
         {
@@ -43,6 +56,9 @@ namespace Restudemy.Controllers
             return new ObjectResult(_personBusiness.Create(person));
         }
         [HttpPut]
+        [SwaggerResponse((202), Type = typeof(List<PersonVO>))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody]PersonVO person)
         {
@@ -50,6 +66,9 @@ namespace Restudemy.Controllers
             return new ObjectResult(_personBusiness.Update(person));
         }
         [HttpDelete("{id}")]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         { 

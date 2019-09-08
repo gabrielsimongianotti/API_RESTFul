@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restudemy.Business;
 using Restudemy.Data.VO;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
 using Tapioca.HATEOAS;
 
 namespace Restudemy.Controllers
 {
+
     [ApiController]
     [ApiVersion("1")]
     [Route("api/[controller]/v{vesion:apiVersion}")]
@@ -17,6 +20,10 @@ namespace Restudemy.Controllers
             _booksBusiness = booksBusiness;
         }
         [HttpGet]
+        [SwaggerResponse((200), Type = typeof(List<BookVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
@@ -24,6 +31,10 @@ namespace Restudemy.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerResponse((200), Type = typeof(List<BookVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
@@ -33,6 +44,9 @@ namespace Restudemy.Controllers
     
         }
         [HttpPost]
+        [SwaggerResponse((201), Type = typeof(List<BookVO>))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody]BookVO books)
         {
@@ -40,6 +54,9 @@ namespace Restudemy.Controllers
             return new ObjectResult(_booksBusiness.Create(books));
         }
         [HttpPut]
+        [SwaggerResponse((202), Type = typeof(List<BookVO>))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody]BookVO books)
         {
@@ -47,6 +64,9 @@ namespace Restudemy.Controllers
             return new ObjectResult(_booksBusiness.Update(books));
         }
         [HttpDelete("{id}")]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         {

@@ -13,6 +13,8 @@ using Restudemy.Repository.Generic;
 using Microsoft.Net.Http.Headers;
 using Tapioca.HATEOAS;
 using Restudemy.Hypermedia;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Restudemy
 {
@@ -72,6 +74,13 @@ namespace Restudemy
 
             services.AddApiVersioning(option => option.ReportApiVersions = true);
 
+            services.AddSwaggerGen( c => {
+                c.SwaggerDoc("v1",
+                   new Info {
+                       Title = "Restfell API With ASP .net core 2.0",
+                       Version = "V1"
+                    });
+            });
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IBooksBusiness, BookBusinessImpl>();
@@ -92,9 +101,14 @@ namespace Restudemy
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
-            //loggerFactory.AddConsole(_configuration.GetSection("Logging"));
-            //loggerFactory.AddDebug();
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c=> {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","My API V1");
+            });
+            var option = new RewriteOptions();
+            option.AddRedirect("^$","swagger");
+            app.UseRewriter(option);
 
             app.UseMvc(routes =>
             {
