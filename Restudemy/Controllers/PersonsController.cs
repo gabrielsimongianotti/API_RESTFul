@@ -5,6 +5,7 @@ using Restudemy.Data.VO;
 using Tapioca.HATEOAS;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Restudemy.Controllers
 {
@@ -27,6 +28,7 @@ namespace Restudemy.Controllers
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
+        [Authorize("Bearer")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
@@ -37,6 +39,7 @@ namespace Restudemy.Controllers
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
+        [Authorize("Bearer")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
@@ -48,6 +51,7 @@ namespace Restudemy.Controllers
         [SwaggerResponse((201), Type = typeof(List<PersonVO>))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
+        [Authorize("Bearer")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody]PersonVO person)
         {
@@ -59,6 +63,7 @@ namespace Restudemy.Controllers
         [SwaggerResponse((202), Type = typeof(List<PersonVO>))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
+        [Authorize("Bearer")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody]PersonVO person)
         {
@@ -69,6 +74,7 @@ namespace Restudemy.Controllers
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
+        [Authorize("Bearer")]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         { 

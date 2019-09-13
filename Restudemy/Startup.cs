@@ -15,6 +15,12 @@ using Tapioca.HATEOAS;
 using Restudemy.Hypermedia;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Rewrite;
+using Restudemy.Secutity.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Restudemy.Repository;
+using Restudemy.Repository.Implementattions;
 
 namespace Restudemy
 {
@@ -36,30 +42,55 @@ namespace Restudemy
             var connectionString = _configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connectionString));
 
-            if (_environment.IsDevelopment())
+            ExecuteMigrations(connectionString);
+
+            var signingConfigurations = new SigningConfigurations();
+            services.AddSingleton(signingConfigurations);
+
+            var tokenConfigurations = new TokenConfiguration();
+            //read json config
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(
+                _configuration.GetSection("TokenConfigurations")
+            )
+            .Configure(tokenConfigurations);
+
+            services.AddSingleton(tokenConfigurations);
+
+            services.AddAuthentication(authOptions =>
             {
-                try
-                {
-                    var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+                authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
+            {
+                var paramsValidation = bearerOptions.TokenValidationParameters;
+                paramsValidation.IssuerSigningKey = signingConfigurations.Key;
+                paramsValidation.ValidAudience = tokenConfigurations.Audience;
+                paramsValidation.ValidIssuer = tokenConfigurations.Issuer;
 
-                    var evolve = new Evolve.Evolve("Evolve.json", evolveConnection, msg => _logger.LogInformation(msg))
-                    {
-                        Locations = new List<string> { "db/migrations","db/dataset" },
-                        IsEraseDisabled = true,
-                    };
+                // Validates the signing of a received token
+                paramsValidation.ValidateIssuerSigningKey = true;
 
-                    evolve.Migrate();
+                // Checks if a received token is still valid
+                paramsValidation.ValidateLifetime = true;
 
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogCritical("Database migration failed.", ex);
-                    throw;
-                }
-            }
+                // Tolerance time for the expiration of a token (used in case
+                // of time synchronization problems between different
+                // computers involved in the communication process)
+                paramsValidation.ClockSkew = TimeSpan.Zero;
+            });
+
+            // Enables the use of the token as a means of
+            // authorizing access to this project's resources
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                    .RequireAuthenticatedUser().Build());
+            });
 
 
-            services.AddMvc(options => 
+
+            services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = true;
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
@@ -74,19 +105,47 @@ namespace Restudemy
 
             services.AddApiVersioning(option => option.ReportApiVersions = true);
 
-            services.AddSwaggerGen( c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1",
-                   new Info {
+                   new Info
+                   {
                        Title = "Restfell API With ASP .net core 2.0",
                        Version = "V1"
-                    });
+                   });
             });
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IBooksBusiness, BookBusinessImpl>();
+            services.AddScoped<ILoginBusiness, LoginBusinessImpl>();
+            services.AddScoped<IUserRepository, UserRepositoryImpl>();
 
-            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
+        }
+
+        private void ExecuteMigrations(string connectionString)
+        {
+            if (_environment.IsDevelopment())
+            {
+                try
+                {
+                    var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+
+                    var evolve = new Evolve.Evolve("Evolve.json", evolveConnection, msg => _logger.LogInformation(msg))
+                    {
+                        Locations = new List<string> { "db/migrations", "db/dataset" },
+                        IsEraseDisabled = true,
+                    };
+
+                    evolve.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical("Database migration failed.", ex);
+                    throw;
+                }
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
