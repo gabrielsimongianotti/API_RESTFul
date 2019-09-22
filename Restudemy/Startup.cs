@@ -118,6 +118,7 @@ namespace Restudemy
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IBooksBusiness, BookBusinessImpl>();
             services.AddScoped<ILoginBusiness, LoginBusinessImpl>();
+            services.AddScoped<IFileBusiness, FileBusinessImpl>();
             services.AddScoped<IUserRepository, UserRepositoryImpl>();
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
 

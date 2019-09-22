@@ -39,4 +39,3 @@ C:\Users\soneca\Desktop\API_RESTFul\Restudemy\bin\Debug\netcoreapp2.1\Restudemy.
 C:\Users\soneca\Desktop\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorAssemblyInfo.cache
 C:\Users\soneca\Desktop\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorAssemblyInfo.cs
 C:\Users\soneca\Desktop\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.RazorTargetAssemblyInfo.cache
-C:\Users\soneca\Documents\API_RESTFul\Restudemy\obj\Debug\netcoreapp2.1\Restudemy.csprojAssemblyReference.cache
